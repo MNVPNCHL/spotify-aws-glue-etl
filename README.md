@@ -47,11 +47,5 @@ This project builds an AWS data pipeline using **S3 + AWS Glue Studio (Visual ET
 - PySpark Glue script: `src/glue_job.py`
 - Visual job JSON: `src/glue_visual_job.json`
 
-## Notes (Security)
-Do NOT commit:
-- AWS account IDs
-- IAM role ARNs
-- access keys
-- bucket names that identify your account
-Sanitize configs before pushing to GitHub.
+
 
