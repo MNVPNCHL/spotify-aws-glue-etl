@@ -17,7 +17,7 @@ This project builds an AWS data pipeline using **S3 + AWS Glue Studio (Visual ET
 ![Architecture](Architecture.png)
 
 ## Glue Studio Visual Job
-![Visual ETL](architecture/visual_ETL.png)
+![Visual ETL](Flowchart.png)
 
 ## Tech Stack
 - AWS S3 (staging + data warehouse)
