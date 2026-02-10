@@ -1,0 +1,341 @@
+{
+	"dag": {
+		"node-1769654191086": {
+			"classification": "DataSource",
+			"type": "S3",
+			"name": "artist",
+			"inputs": [],
+			"isCatalog": false,
+			"recurse": true,
+			"paths": [
+				"s3://pro-mnv/staging/artists.csv"
+			],
+			"additionalOptions": {
+				"enableSamplePath": false,
+				"samplePath": "s3://pro-mnv/staging/artists.csv"
+			},
+			"inferSchemaChanged": false,
+			"format": "csv",
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/s3.2a166713.svg",
+			"generatedNodeName": "artist_node1769654191086",
+			"codeGenVersion": 2,
+			"separator": ",",
+			"quoteChar": "\"",
+			"withHeader": true,
+			"escaper": "",
+			"outputSchemas": [
+				[
+					{
+						"key": "id",
+						"fullPath": [
+							"id"
+						],
+						"type": "string"
+					},
+					{
+						"key": "name",
+						"fullPath": [
+							"name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "artist_popularity",
+						"fullPath": [
+							"artist_popularity"
+						],
+						"type": "string"
+					},
+					{
+						"key": "followers",
+						"fullPath": [
+							"followers"
+						],
+						"type": "string"
+					},
+					{
+						"key": "genre",
+						"fullPath": [
+							"genre"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1769654191767": {
+			"classification": "DataSource",
+			"type": "S3",
+			"name": "album",
+			"inputs": [],
+			"isCatalog": false,
+			"recurse": true,
+			"paths": [
+				"s3://pro-mnv/staging/albums.csv"
+			],
+			"additionalOptions": {
+				"enableSamplePath": false,
+				"samplePath": "s3://pro-mnv/staging/albums.csv"
+			},
+			"inferSchemaChanged": false,
+			"format": "csv",
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/s3.2a166713.svg",
+			"separator": ",",
+			"quoteChar": "\"",
+			"withHeader": true,
+			"escaper": "",
+			"outputSchemas": [
+				[
+					{
+						"key": "track_name",
+						"fullPath": [
+							"track_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "track_id",
+						"fullPath": [
+							"track_id"
+						],
+						"type": "string"
+					},
+					{
+						"key": "duration_ms",
+						"fullPath": [
+							"duration_ms"
+						],
+						"type": "string"
+					},
+					{
+						"key": "album_name",
+						"fullPath": [
+							"album_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "release_date",
+						"fullPath": [
+							"release_date"
+						],
+						"type": "string"
+					},
+					{
+						"key": "label",
+						"fullPath": [
+							"label"
+						],
+						"type": "string"
+					},
+					{
+						"key": "album_popularity",
+						"fullPath": [
+							"album_popularity"
+						],
+						"type": "string"
+					},
+					{
+						"key": "album_id",
+						"fullPath": [
+							"album_id"
+						],
+						"type": "string"
+					},
+					{
+						"key": "artist_id",
+						"fullPath": [
+							"artist_id"
+						],
+						"type": "string"
+					},
+					{
+						"key": "duration_sec",
+						"fullPath": [
+							"duration_sec"
+						],
+						"type": "string"
+					}
+				]
+			],
+			"generatedNodeName": "album_node1769654191767",
+			"codeGenVersion": 2
+		},
+		"node-1769654192296": {
+			"classification": "DataSource",
+			"type": "S3",
+			"name": "tracks",
+			"inputs": [],
+			"isCatalog": false,
+			"recurse": true,
+			"paths": [
+				"s3://pro-mnv/staging/track.csv"
+			],
+			"additionalOptions": {
+				"enableSamplePath": false,
+				"samplePath": "s3://pro-mnv/staging/track.csv"
+			},
+			"inferSchemaChanged": false,
+			"format": "csv",
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/s3.2a166713.svg",
+			"separator": ",",
+			"quoteChar": "\"",
+			"withHeader": true,
+			"escaper": "",
+			"generatedNodeName": "tracks_node1769654192296",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "track_id",
+						"fullPath": [
+							"track_id"
+						],
+						"type": "string"
+					},
+					{
+						"key": "track_popularity",
+						"fullPath": [
+							"track_popularity"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1769654254189": {
+			"classification": "Transform",
+			"type": "Join",
+			"name": "Join album & artist",
+			"inputs": [
+				"node-1769654191086",
+				"node-1769654191767"
+			],
+			"joinType": "equijoin",
+			"columns": [
+				{
+					"from": "node-1769654191086",
+					"keys": [
+						"id"
+					]
+				},
+				{
+					"from": "node-1769654191767",
+					"keys": [
+						"artist_id"
+					]
+				}
+			],
+			"columnConditions": [
+				"="
+			],
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Join.493120c2.svg",
+			"generatedNodeName": "Joinalbumartist_node1769654254189",
+			"codeGenVersion": 2
+		},
+		"node-1769654294227": {
+			"classification": "Transform",
+			"type": "Join",
+			"name": "Join with track",
+			"inputs": [
+				"node-1769654192296",
+				"node-1769654254189"
+			],
+			"joinType": "equijoin",
+			"columns": [
+				{
+					"from": "node-1769654192296",
+					"keys": [
+						"track_id"
+					]
+				},
+				{
+					"from": "node-1769654254189",
+					"keys": [
+						"track_id"
+					]
+				}
+			],
+			"columnConditions": [
+				"="
+			],
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Join.493120c2.svg",
+			"generatedNodeName": "Joinwithtrack_node1769654294227",
+			"codeGenVersion": 2
+		},
+		"node-1769654338246": {
+			"classification": "Transform",
+			"type": "DropFields",
+			"name": "Drop Fields",
+			"inputs": [
+				"node-1769654294227"
+			],
+			"paths": [
+				"`.track_id`",
+				"id"
+			],
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Drop-fields.99017dd5.svg",
+			"generatedNodeName": "DropFields_node1769654338246",
+			"codeGenVersion": 2
+		},
+		"node-1769654357183": {
+			"classification": "DataSink",
+			"type": "S3",
+			"name": "destination",
+			"inputs": [
+				"node-1769654338246"
+			],
+			"format": "glueparquet",
+			"compression": "snappy",
+			"numberTargetPartitions": "0",
+			"path": "s3://pro-mnv/datawarehouse/",
+			"partitionKeys": [],
+			"updateCatalogOptions": "none",
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": false
+			},
+			"autoDataQuality": {
+				"isEnabled": true,
+				"evaluationContext": "EvaluateDataQuality_node1769654186882"
+			},
+			"additionalOptions": {},
+			"iconUrl": "https://c.d.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/s3.2a166713.svg",
+			"generatedNodeName": "destination_node1769654357183",
+			"codeGenVersion": 2
+		}
+	},
+	"jobConfig": {
+		"command": "glueetl",
+		"description": "",
+		"role": "arn:aws:iam::560740997153:role/glue-access-s3",
+		"scriptName": "Spotify project.py",
+		"version": "5.0",
+		"language": "python-3",
+		"scriptLocation": "s3://aws-glue-assets-560740997153-us-east-2/scripts/",
+		"temporaryDirectory": "s3://aws-glue-assets-560740997153-us-east-2/temporary/",
+		"timeout": 480,
+		"maxConcurrentRuns": 1,
+		"workerType": "G.1X",
+		"numberOfWorkers": 10,
+		"maxRetries": 0,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"security": "none",
+		"bookmark": "job-bookmark-disable",
+		"logging": false,
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"sparkPath": "s3://aws-glue-assets-560740997153-us-east-2/sparkHistoryLogs/",
+		"serverEncryption": false,
+		"glueHiveMetastore": true,
+		"etlAutoScaling": false,
+		"etlAutoTuning": true,
+		"jobParameters": [],
+		"tags": [],
+		"connectionsList": [],
+		"jobMode": "VISUAL_MODE",
+		"name": "Spotify project",
+		"dataLineage": false
+	},
+	"hasBeenSaved": false
+}
